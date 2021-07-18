@@ -69,7 +69,54 @@
     
       expect(pet.hunger).toEqual(0);
     })
+
+    it('throws an error if the pet is not alive', () => {
+      const pet = new Pet('Fido');
+
+      pet.age = 30;
+
+      expect(() => pet.feed()).toThrow('Your pet is no longer alive :(');
+    });
   });
+
+  describe('checkUp', () => {
+    it('returns "I am hungry AND I need a walk" if fitness is less than equal to or less than 3 and hunger is equal to or greater than 5', () => {
+      const pet = new Pet('Fido');
+
+      pet.hunger = 8;
+      pet.fitness = 1;
+      pet.checkUp();
+
+      expect(pet.checkUp()).toEqual('I am hungry AND I need a walk')
+    })
+    it('returns "I feel great!" if fitness is greater than 3 and hunger is less than 5', () => {
+      const pet = new Pet('Fido');
+
+      pet.hunger = 1;
+      pet.fitness = 10;
+      pet.checkUp();
+
+      expect(pet.checkUp()).toEqual('I feel great!')
+    })
+    it('returns "I need a walk" if fitness is less than 4', () => {
+      const pet = new Pet('Fido');
+
+      pet.hunger = 1;
+      pet.fitness = 2;
+      pet.checkUp();
+
+      expect(pet.checkUp()).toEqual('I need a walk')
+    })
+    it('returns "I am hungry" if hunger is more than 4', () => {
+      const pet = new Pet('Fido');
+
+      pet.hunger = 5;
+      pet.fitness = 8;
+      pet.checkUp();
+
+      expect(pet.checkUp()).toEqual('I am hungry')
+    })
+});
 
   describe('isAlive', () => {
     it('returns false if the pet hunger is 10 or more', () => {
@@ -108,4 +155,28 @@
 
       expect(pet.isAlive).toEqual(true);
     })
+  
   });
+describe('throws an error if the pet is no longer alive', () => {
+  it('throws an error message if checkup() is called while the pet is no longer alive', () => {
+    const pet = new Pet('Fido');
+
+    pet.hunger = 10;
+    pet.checkUp();
+    expect(pet.checkUp()).toEqual('Your pet is no longer alive :(')
+  })
+  it('throws an error message if growUp() is called while the pet is no longer alive', () => {
+    const pet = new Pet('Fido');
+
+    pet.age = 31 ;
+
+    expect(() => pet.growUp()).toThrow('Your pet is no longer alive :(')
+  })
+  it('throws an error message if walk() is called while the pet is no longer alive', () => {
+    const pet = new Pet('Fido');
+
+    pet.fitness = 0 ;
+
+    expect(() => pet.walk()).toThrow('Your pet is no longer alive :(')
+  })
+})
