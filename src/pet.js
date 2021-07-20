@@ -6,6 +6,8 @@ function Pet(name) {
     this.age = 0;
     this.hunger = 0;
     this.fitness = 10;
+    this.children = [];
+    
 };
 
 Pet.prototype = {
@@ -13,6 +15,14 @@ Pet.prototype = {
       return this.age < 30 && this.hunger < 10 && this.fitness > 0;
     }
  };
+
+ Pet.prototype.haveBaby = function (babyName) {
+    const child = new Pet(babyName)
+
+    this.children.push(child)
+    
+
+ }
 
 Pet.prototype.checkUp = function() {
     if(!this.isAlive){

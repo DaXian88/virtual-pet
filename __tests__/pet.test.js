@@ -180,3 +180,12 @@ describe('throws an error if the pet is no longer alive', () => {
     expect(() => pet.walk()).toThrow('Your pet is no longer alive :(')
   })
 })
+
+describe('adds a children property to parent object which contains an instance of Pet', () => {
+  it('instantiates Pet as the first element of the parent.children array', () => {
+    const parent = new Pet('Dave')
+    parent.haveBaby('lilDave')
+    expect(parent.children[0]).toBeInstanceOf(Pet)
+    expect(parent.children[0]).toHaveProperty('name', 'lilDave')
+})
+})
